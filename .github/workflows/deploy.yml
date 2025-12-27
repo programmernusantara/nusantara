@@ -1,0 +1,46 @@
+name: Deploy Jaspr to GitHub Pages
+
+on:
+  push:
+    branches: [ main ] # Pastikan branch utama Anda bernama 'main'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Jaspr CLI
+        run: dart pub global activate jaspr_cli
+
+      - name: Get Dependencies
+        run: dart pub get
+
+      - name: Build Static Site
+        # Menggunakan base /nusantara/ agar CSS dan JS terbaca dengan benar
+        run: jaspr build --target static --base /nusantara/
+
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'build/jaspr/'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
