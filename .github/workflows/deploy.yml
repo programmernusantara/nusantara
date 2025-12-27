@@ -26,11 +26,13 @@ jobs:
         run: |
           dart pub global activate jaspr_cli
           export PATH="$PATH":"$HOME/.pub-cache/bin"
-          jaspr build --target static --base /nusantara/
+          # Menggunakan perintah sederhana sesuai panduan resmi
+          jaspr build --verbose
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Pastikan folder output sesuai dengan standar jaspr build
           path: 'build/jaspr'
 
   deploy:
