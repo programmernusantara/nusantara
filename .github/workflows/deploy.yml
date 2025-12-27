@@ -2,7 +2,7 @@ name: Deploy Jaspr to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Pastikan branch utama Anda bernama 'main'
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -26,8 +26,10 @@ jobs:
         run: dart pub get
 
       - name: Build Static Site
-        # Menggunakan base /nusantara/ agar CSS dan JS terbaca dengan benar
-        run: jaspr build --target static --base /nusantara/
+        # Kita pastikan perintah ini tertulis dalam satu baris tanpa karakter aneh
+        run: |
+          export PATH="$PATH":"$HOME/.pub-cache/bin"
+          jaspr build --target static --base /nusantara/
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
