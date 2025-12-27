@@ -16,23 +16,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
 
-      - name: Install Jaspr CLI
-        run: dart pub global activate jaspr_cli
-
       - name: Build Jaspr
         run: |
+          dart pub global activate jaspr_cli
+          # Tambahkan pub-cache ke PATH agar perintah 'jaspr' dikenali
           export PATH="$PATH":"$HOME/.pub-cache/bin"
-          # Ganti '/nusantara/' sesuai dengan nama repository Anda di GitHub
-          # Flag --base sangat penting agar logo dan navigasi tidak broken
-          jaspr build --verbose --base /nusantara/
+          jaspr build --verbose
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Jaspr static output secara default ada di folder ini
+          # Sesuai dokumentasi: path harus ke build/jaspr
           path: 'build/jaspr'
 
   deploy:

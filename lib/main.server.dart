@@ -40,7 +40,7 @@ void main() {
           header: Header(
             title: 'Nusantara Docs',
             // Gunakan path absolut dari base URL
-            logo: '/images/logo.svg', 
+            logo: 'images/logo.svg', 
             items: [
               ThemeToggle(),
               GitHubButton(repo: 'username/repo-anda'),
@@ -58,7 +58,7 @@ void main() {
                 title: 'Content',
                 links: [
                   // Pastikan file 'about.md' ada di folder 'content/'
-                  SidebarLink(text: "About", href: '/about'),
+                  SidebarLink(text: "About", href: 'about'),
                 ],
               ),
             ],
