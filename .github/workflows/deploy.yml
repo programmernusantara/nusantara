@@ -25,14 +25,12 @@ jobs:
       - name: Build Jaspr
         run: |
           dart pub global activate jaspr_cli
-          # Tambahkan ekspor path agar perintah jaspr dikenali
           export PATH="$PATH":"$HOME/.pub-cache/bin"
-          jaspr build --verbose
+          jaspr build --target static --base /nusantara/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Pastikan path ini sesuai dengan dokumentasi resmi
           path: 'build/jaspr'
 
   deploy:

@@ -76,7 +76,7 @@ void main() {
               // Adds navigation links to the sidebar.
               SidebarGroup(
                 links: [
-                  SidebarLink(text: "Overview", href: '/'),
+                  SidebarLink(text: "Overview", href: '.'),
                 ],
               ),
               SidebarGroup(
