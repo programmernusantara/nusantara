@@ -13,28 +13,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
 
-      - name: Install Jaspr CLI
-        run: dart pub global activate jaspr_cli
-
-      - name: Get Dependencies
-        run: dart pub get
-
-      - name: Build Static Site
-        # Kita pastikan perintah ini tertulis dalam satu baris tanpa karakter aneh
+      - name: Build Jaspr
         run: |
+          dart pub global activate jaspr_cli
+          # Tambahkan ekspor path agar perintah jaspr dikenali
           export PATH="$PATH":"$HOME/.pub-cache/bin"
-          jaspr build --target static --base /nusantara/
+          jaspr build --verbose
 
-      - name: Upload Artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/jaspr/'
+          # Pastikan path ini sesuai dengan dokumentasi resmi
+          path: 'build/jaspr'
 
   deploy:
     needs: build
