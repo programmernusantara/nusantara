@@ -27,6 +27,7 @@ void main() {
   runApp(
     Document(
       title: 'nusantara',
+      base: '/',
       styles: [
         // Special import rule to include to another css file.
         css.import('https://fonts.googleapis.com/css?family=Roboto'),
