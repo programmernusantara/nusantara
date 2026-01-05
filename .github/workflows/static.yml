@@ -2,7 +2,7 @@ name: Deploy Jaspr Site
 
 on:
   push:
-    branches: ["main"] # Pastikan ini nama branch kamu
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -13,7 +13,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{steps:deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,7 +33,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Penting: Arahkan ke folder build jaspr
           path: 'build/jaspr'
 
       - name: Deploy to GitHub Pages
