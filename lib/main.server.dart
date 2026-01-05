@@ -26,7 +26,6 @@ void main() {
   // with the provided parameters and components.
   runApp(
     Document(
-      base: 'nusantara',
       title: 'nusantara',
       styles: [
         // Special import rule to include to another css file.

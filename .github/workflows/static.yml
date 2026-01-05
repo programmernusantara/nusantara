@@ -4,10 +4,16 @@ on:
   push:
     branches: ["main"]
 
+# Memberikan izin yang diperlukan untuk deployment GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# Memastikan hanya satu deployment yang berjalan dalam satu waktu
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -29,11 +35,14 @@ jobs:
         run: |
           dart pub global activate jaspr_cli
           jaspr build --verbose
+          # Penting: Membuat file .nojekyll agar folder _jaspr tidak diabaikan oleh GitHub
+          touch build/jaspr/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'build/jaspr'
+          # Mengunggah hanya hasil build jaspr
+          path: "build/jaspr"
 
       - name: Deploy to GitHub Pages
         id: deployment
